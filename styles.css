@@ -43,6 +43,19 @@
   box-sizing: border-box;
 }
 
+img {
+  max-width: 100%;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+section[id] {
+  scroll-margin-top: calc(var(--nav-height) + 12px);
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -1017,26 +1030,88 @@ footer {
 
 /* --------------------------------------------------------------
    16. RESPONSIVE / MOBILE
+
+   The navigation collapses at 1000px so the nine menu links never
+   become cramped. On phones the menu becomes a full-width panel
+   below the sticky header with large touch-friendly rows.
    -------------------------------------------------------------- */
+
 @media (max-width: 1100px) {
   .links {
-    gap: 16px;
-    font-size: .80rem;
+    gap: 14px;
+    font-size: .78rem;
   }
 
   .brand-logo {
-    width: 160px;
-    max-height: 66px;
+    width: 155px;
+    max-height: 64px;
   }
 }
 
-@media (max-width: 900px) {
+/* ---------------- TABLET + MOBILE NAVIGATION ---------------- */
+@media (max-width: 1000px) {
   :root {
-    --nav-height: 90px;
+    --nav-height: 78px;
+    --section-padding: 80px;
+  }
+
+  body.nav-open {
+    overflow: hidden;
+  }
+
+  .nav {
+    z-index: 100;
+  }
+
+  .navin {
+    min-height: var(--nav-height);
+    gap: 12px;
+  }
+
+  /* Keep the enlarged logo inside a predictable area on small screens. */
+  .brand {
+    flex: 0 1 220px;
+    min-width: 0;
+    height: var(--nav-height);
+    overflow: hidden;
+    justify-content: center;
+  }
+
+  .brand-logo {
+    width: 118px;
+    max-height: 54px;
+    transform: scale(4.8);
+    transform-origin: center center;
+  }
+
+  .brand-name {
+    display: none;
   }
 
   .menu {
-    display: block;
+    width: 48px;
+    height: 48px;
+    flex: 0 0 48px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 1px solid rgba(85, 19, 30, .28);
+    border-radius: 8px;
+    background: rgba(255,255,255,.24);
+    color: var(--maroon-dark);
+    font-size: 1.8rem;
+    line-height: 1;
+    font-weight: 400;
+    cursor: pointer;
+    transition: background .2s ease, transform .2s ease;
+  }
+
+  .menu:active {
+    transform: scale(.96);
+  }
+
+  .menu[aria-expanded="true"] {
+    background: rgba(111,29,42,.10);
   }
 
   .links {
@@ -1044,37 +1119,60 @@ footer {
   }
 
   .links.open {
-    position: absolute;
+    position: fixed;
     top: var(--nav-height);
     left: 0;
     right: 0;
+    z-index: 99;
     display: flex;
     flex-direction: column;
     align-items: stretch;
     gap: 0;
-    padding: 12px 24px 22px;
-    background: linear-gradient(105deg, #FFF0A8 0%, #FBE47A 38%, #F6D65B 70%, #EFC643 100%);
-    border-bottom: 1px solid rgba(111,29,42,.25);
-    box-shadow: 0 16px 28px rgba(85,21,31,.12);
+    max-height: calc(100vh - var(--nav-height));
+    max-height: calc(100dvh - var(--nav-height));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 8px max(20px, env(safe-area-inset-right))
+             calc(18px + env(safe-area-inset-bottom))
+             max(20px, env(safe-area-inset-left));
+    background: linear-gradient(105deg, #FFF0A8 0%, #FBE47A 42%, #F6D65B 72%, #EFC643 100%);
+    border-bottom: 3px solid var(--maroon);
+    box-shadow: 0 18px 34px rgba(85,21,31,.18);
   }
 
   .links.open a {
-    padding: 14px 0;
+    min-height: 52px;
+    display: flex;
+    align-items: center;
+    padding: 14px 4px;
     color: var(--maroon-dark);
-    font-size: .92rem;
+    border-bottom: 1px solid rgba(85,19,30,.16);
+    font-size: 1rem;
+    line-height: 1.15;
+    font-weight: 650;
+    letter-spacing: 0;
   }
 
+  .links.open a:last-child {
+    border-bottom: 0;
+  }
+
+  /* Desktop underline is unnecessary in the touch menu. */
   .links.open a::after {
-    bottom: 8px;
+    display: none;
   }
 
   .hero {
     min-height: auto;
-    padding: 58px 0 72px;
+    padding: 56px 0 68px;
+  }
+
+  .heroContent {
+    max-width: 820px;
   }
 
   .hero h1 {
-    font-size: clamp(3.1rem, 10vw, 5.6rem);
+    font-size: clamp(3rem, 9.5vw, 5.5rem);
   }
 
   .head,
@@ -1082,12 +1180,16 @@ footer {
     grid-template-columns: 1fr;
   }
 
+  .head {
+    gap: 18px;
+  }
+
   .contactGrid {
     gap: 30px;
   }
 
   .people {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .learning-grid,
@@ -1100,77 +1202,162 @@ footer {
   }
 
   .joinBtns {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
+/* ---------------- PHONES ---------------- */
 @media (max-width: 620px) {
   :root {
-    --section-padding: 72px;
+    --nav-height: 72px;
+    --section-padding: 64px;
   }
 
   body {
     font-size: 15.5px;
+    overflow-x: hidden;
   }
 
   .wrap {
     width: min(calc(100% - 28px), var(--page-width));
   }
 
+  .navin {
+    gap: 8px;
+  }
+
+  .brand {
+    flex-basis: min(62vw, 205px);
+    justify-content: center;
+  }
+
   .brand-logo {
-    width: 135px;
-    max-height: 56px;
+    width: 104px;
+    max-height: 50px;
+    transform: scale(4.2);
+  }
+
+  .menu {
+    width: 46px;
+    height: 46px;
+    flex-basis: 46px;
+    font-size: 1.7rem;
+  }
+
+  .links.open {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .links.open a {
+    min-height: 50px;
+    font-size: .98rem;
   }
 
   .hero {
-    padding: 44px 0 62px;
+    padding: 40px 0 54px;
   }
 
   .heroBrand {
-    margin-bottom: 28px;
-    padding-bottom: 23px;
+    margin-bottom: 26px;
+    padding-bottom: 22px;
   }
 
   .hero-lab-title {
-    font-size: clamp(2.05rem, 10.5vw, 3rem);
+    font-size: clamp(1.95rem, 9.8vw, 2.85rem);
+    line-height: .95;
+  }
+
+  .hero-lab-title span:first-child {
+    margin-bottom: .75rem;
+    padding: .48rem .7rem .44rem .82rem;
+    font-size: .27em;
+  }
+
+  .hero-lab-title::after {
+    width: 78px;
+    height: 4px;
+    margin-top: 17px;
   }
 
   .hero h1 {
-    font-size: clamp(2.65rem, 13vw, 4.15rem);
-    line-height: .91;
+    margin: 18px auto 22px;
+    font-size: clamp(2.35rem, 12vw, 3.65rem);
+    line-height: .92;
+    overflow-wrap: break-word;
   }
 
   .hero .lead {
-    font-size: 1rem;
-    line-height: 1.35;
+    font-size: .98rem;
+    line-height: 1.45;
   }
 
-  .stats,
-  .cards,
-  .people,
-  .news {
-    grid-template-columns: 1fr;
+  .buttons {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    margin-top: 28px;
   }
 
-  .stats {
-    text-align: center;
+  .btn {
+    width: 100%;
+    min-height: 48px;
+    padding: 14px 16px;
+  }
+
+  .head {
+    margin-bottom: 30px;
+  }
+
+  .kicker {
+    font-size: 1.35rem;
   }
 
   .missionBox h2,
   .head h2,
   .join h2,
   .contact h2 {
-    font-size: clamp(2.15rem, 10.5vw, 3.3rem);
-    line-height: .92;
+    font-size: clamp(2.05rem, 10vw, 3.1rem);
+    line-height: .94;
   }
 
   .missionBox {
-    padding: 56px 0;
+    padding: 52px 0;
+  }
+
+  .cards,
+  .people,
+  .news {
+    grid-template-columns: 1fr;
+  }
+
+  .card,
+  .learning-card,
+  .person,
+  .news article {
+    padding: 26px 22px;
+  }
+
+  .card h3,
+  .project h3,
+  .person h3,
+  .pub h3,
+  .news h3,
+  .event-content h3,
+  .learning-card h3 {
+    overflow-wrap: anywhere;
   }
 
   .project {
-    grid-template-columns: 48px 1fr;
+    grid-template-columns: 52px minmax(0, 1fr);
+    align-items: start;
+    gap: 16px;
     padding: 22px 0;
+  }
+
+  .picon {
+    width: 48px;
+    height: 48px;
   }
 
   .arrow {
@@ -1178,7 +1365,8 @@ footer {
   }
 
   .person.pi {
-    grid-template-columns: 70px 1fr;
+    grid-template-columns: 70px minmax(0, 1fr);
+    gap: 16px;
   }
 
   .pi .avatar {
@@ -1188,21 +1376,27 @@ footer {
 
   .pub {
     grid-template-columns: 1fr;
-    gap: 4px;
+    gap: 6px;
   }
 
   .event-card {
     grid-template-columns: 1fr;
+    min-height: 0;
   }
 
   .event-image {
-    min-height: 190px;
+    min-height: 170px;
     border-right: 0;
     border-bottom: 1px solid var(--line);
   }
 
+  .event-content {
+    padding: 25px 22px;
+  }
+
   .joinBox {
-    padding: 38px 25px;
+    padding: 34px 22px;
+    gap: 28px;
   }
 
   .joinBtns {
@@ -1211,11 +1405,65 @@ footer {
 
   .details div {
     grid-template-columns: 1fr;
-    gap: 4px;
+    gap: 6px;
+  }
+
+  .details a,
+  .details p {
+    overflow-wrap: anywhere;
   }
 
   .foot {
     flex-direction: column;
+    align-items: center;
     text-align: center;
+  }
+}
+
+/* ---------------- SMALL PHONES ---------------- */
+@media (max-width: 420px) {
+  :root {
+    --section-padding: 56px;
+  }
+
+  .wrap {
+    width: calc(100% - 24px);
+  }
+
+  .brand {
+    flex-basis: 175px;
+  }
+
+  .brand-logo {
+    width: 94px;
+    transform: scale(3.9);
+  }
+
+  .hero-lab-title {
+    font-size: clamp(1.75rem, 9vw, 2.25rem);
+  }
+
+  .hero h1 {
+    font-size: clamp(2.15rem, 11.5vw, 3rem);
+  }
+
+  .kicker {
+    font-size: 1.18rem;
+  }
+
+  .missionBox h2,
+  .head h2,
+  .join h2,
+  .contact h2 {
+    font-size: clamp(1.95rem, 9.5vw, 2.65rem);
+  }
+
+  .person.pi {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .pi .avatar {
+    margin: 0 auto;
   }
 }
