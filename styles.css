@@ -120,6 +120,7 @@ a {
 }
 
 .navin {
+  position: relative;
   min-height: var(--nav-height);
   display: flex;
   align-items: center;
@@ -128,6 +129,8 @@ a {
 }
 
 .brand {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   gap: 15px;
@@ -146,6 +149,7 @@ a {
   box-shadow: none;
   transform: scale(var(--nav-logo-scale));
   transform-origin: center center;
+  pointer-events: none; /* oversized logo can never block the menu button */
 }
 
 .brand-name {
@@ -1051,7 +1055,7 @@ footer {
 /* ---------------- TABLET + MOBILE NAVIGATION ---------------- */
 @media (max-width: 1000px) {
   :root {
-    --nav-height: 78px;
+    --nav-height: 76px;
     --section-padding: 80px;
   }
 
@@ -1060,50 +1064,78 @@ footer {
   }
 
   .nav {
-    z-index: 100;
+    z-index: 1000;
   }
 
   .navin {
+    position: relative;
     min-height: var(--nav-height);
-    gap: 12px;
+    gap: 10px;
   }
 
-  /* Keep the enlarged logo inside a predictable area on small screens. */
+  /*
+     IMPORTANT MOBILE FIX:
+     The desktop logo is enlarged with transform:scale(). On mobile we
+     contain that transformed artwork inside the brand box and prevent
+     the image from receiving pointer events, so it cannot sit over the
+     hamburger button.
+  */
   .brand {
-    flex: 0 1 220px;
+    position: relative;
+    z-index: 1;
+    flex: 1 1 auto;
     min-width: 0;
     height: var(--nav-height);
     overflow: hidden;
-    justify-content: center;
+    justify-content: flex-start;
+    pointer-events: auto;
   }
 
   .brand-logo {
-    width: 118px;
-    max-height: 54px;
-    transform: scale(4.8);
-    transform-origin: center center;
+    width: 110px;
+    max-height: 52px;
+    transform: scale(4.2);
+    transform-origin: left center;
+    pointer-events: none;
   }
 
   .brand-name {
     display: none;
   }
 
+  /* Large, guaranteed click/tap target */
   .menu {
-    width: 48px;
-    height: 48px;
-    flex: 0 0 48px;
-    display: grid;
+    position: relative;
+    z-index: 1003;
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    flex: 0 0 50px;
+    display: grid !important;
     place-items: center;
+    margin-left: auto;
     padding: 0;
-    border: 1px solid rgba(85, 19, 30, .28);
+    border: 2px solid rgba(85,19,30,.32);
     border-radius: 8px;
-    background: rgba(255,255,255,.24);
+    background: rgba(255,255,255,.38);
     color: var(--maroon-dark);
-    font-size: 1.8rem;
+    font-family: Arial, sans-serif;
+    font-size: 1.85rem;
     line-height: 1;
     font-weight: 400;
     cursor: pointer;
-    transition: background .2s ease, transform .2s ease;
+    touch-action: manipulation;
+    pointer-events: auto;
+    user-select: none;
+    -webkit-user-select: none;
+    transition: background .2s ease, transform .15s ease;
+  }
+
+  .menu:hover,
+  .menu:focus-visible {
+    background: rgba(255,255,255,.62);
+    outline: 3px solid rgba(111,29,42,.18);
+    outline-offset: 2px;
   }
 
   .menu:active {
@@ -1111,55 +1143,71 @@ footer {
   }
 
   .menu[aria-expanded="true"] {
-    background: rgba(111,29,42,.10);
+    background: rgba(111,29,42,.12);
   }
 
-  .links {
-    display: none;
+  /* Closed by default on tablets/phones. */
+  .nav .links {
+    display: none !important;
   }
 
-  .links.open {
+  /* Open menu panel. Specificity + !important prevents old desktop rules
+     from hiding it. */
+  .nav .links.open {
     position: fixed;
     top: var(--nav-height);
     left: 0;
     right: 0;
-    z-index: 99;
-    display: flex;
+    z-index: 1002;
+    display: flex !important;
     flex-direction: column;
     align-items: stretch;
     gap: 0;
+    width: 100%;
     max-height: calc(100vh - var(--nav-height));
     max-height: calc(100dvh - var(--nav-height));
     overflow-y: auto;
     overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
     padding: 8px max(20px, env(safe-area-inset-right))
              calc(18px + env(safe-area-inset-bottom))
              max(20px, env(safe-area-inset-left));
     background: linear-gradient(105deg, #FFF0A8 0%, #FBE47A 42%, #F6D65B 72%, #EFC643 100%);
     border-bottom: 3px solid var(--maroon);
-    box-shadow: 0 18px 34px rgba(85,21,31,.18);
+    box-shadow: 0 18px 34px rgba(85,21,31,.22);
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
   }
 
-  .links.open a {
-    min-height: 52px;
+  .nav .links.open a {
+    width: 100%;
+    min-height: 54px;
     display: flex;
     align-items: center;
-    padding: 14px 4px;
-    color: var(--maroon-dark);
-    border-bottom: 1px solid rgba(85,19,30,.16);
+    padding: 15px 6px;
+    color: var(--maroon-dark) !important;
+    border-bottom: 1px solid rgba(85,19,30,.18);
     font-size: 1rem;
     line-height: 1.15;
     font-weight: 650;
     letter-spacing: 0;
+    text-align: left;
   }
 
-  .links.open a:last-child {
+  .nav .links.open a:last-child {
     border-bottom: 0;
   }
 
+  .nav .links.open a:hover,
+  .nav .links.open a:focus-visible {
+    color: var(--maroon) !important;
+    background: rgba(255,255,255,.22);
+  }
+
   /* Desktop underline is unnecessary in the touch menu. */
-  .links.open a::after {
-    display: none;
+  .nav .links.open a::after {
+    display: none !important;
   }
 
   .hero {
@@ -1227,31 +1275,36 @@ footer {
   }
 
   .brand {
-    flex-basis: min(62vw, 205px);
-    justify-content: center;
+    flex: 1 1 auto;
+    max-width: calc(100% - 62px);
+    justify-content: flex-start;
   }
 
   .brand-logo {
-    width: 104px;
-    max-height: 50px;
-    transform: scale(4.2);
+    width: 100px;
+    max-height: 48px;
+    transform: scale(3.8);
+    transform-origin: left center;
+    pointer-events: none;
   }
 
   .menu {
-    width: 46px;
-    height: 46px;
-    flex-basis: 46px;
-    font-size: 1.7rem;
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    flex-basis: 48px;
+    z-index: 1003;
+    font-size: 1.75rem;
   }
 
-  .links.open {
+  .nav .links.open {
     padding-left: 18px;
     padding-right: 18px;
   }
 
-  .links.open a {
-    min-height: 50px;
-    font-size: .98rem;
+  .nav .links.open a {
+    min-height: 52px;
+    font-size: 1rem;
   }
 
   .hero {
