@@ -1,0 +1,38 @@
+HICOAR LAB — QUICK EDITING GUIDE
+
+FILES
+-----
+index.html   = page content. Each major section has a clear comment.
+styles.css  = all colors, fonts, sizes and layout.
+script.js   = mobile-menu and footer-year behavior.
+logo.png    = place your existing HICOAR logo in this same folder.
+
+FASTEST CHANGES
+---------------
+1. Open styles.css.
+2. At the very top, edit the values under QUICK EDIT SETTINGS.
+
+Important variables:
+--hero-maroon: #6E1F28;    First-section solid background
+--maroon: #6F1D2A;         Main maroon
+--yellow: #F6D65B;         Main yellow
+--nav-logo-width: 190px;   Navigation logo width
+--nav-logo-scale: 8;       Navigation logo scale
+--section-padding: 96px;   Vertical spacing between sections
+
+HTML SECTIONS
+-------------
+#home          First / hero section
+Mission        Our mission section
+#research      Research areas
+#projects      Selected projects
+#courses       Courses
+#trainings     Trainings
+#people        People
+#publications  Publications
+#news          News
+#events        Events
+#join          Join HICOAR
+#contact       Contact
+
+Each of these is marked with a large HTML comment in index.html.

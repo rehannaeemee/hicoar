@@ -1,0 +1,1221 @@
+/* ==============================================================
+   HICOAR LAB — CLEAN, EDITABLE STYLESHEET
+   Maroon + Yellow theme with MIT-inspired typography
+   ============================================================== */
+
+/* --------------------------------------------------------------
+   QUICK EDIT SETTINGS
+   Change these values first when you want to recolor or resize
+   the website. Most sections use these variables.
+   -------------------------------------------------------------- */
+:root {
+  /* Main theme colors */
+  --maroon: #6F1D2A;
+  --maroon-dark: #55131E;
+  --maroon-soft: #8A2F3C;
+  --hero-maroon: #6E1F28;      /* First-section solid color */
+
+  --yellow: #F6D65B;
+  --yellow-light: #FFF0A8;
+  --yellow-deep: #E7BC2E;
+
+  --cream: #FFF9E8;
+  --cream-light: #FFFDF7;
+  --white: #FFFFFF;
+  --ink: #2B2022;
+  --muted: #6E5D60;
+  --line: rgba(111, 29, 42, 0.18);
+
+  /* Layout */
+  --page-width: 1180px;
+  --section-padding: 96px;
+  --nav-height: 104px;
+
+  /* Header logo — edit these two values to resize it */
+  --nav-logo-width: 190px;
+  --nav-logo-scale: 8;
+}
+
+/* --------------------------------------------------------------
+   1. GLOBAL / RESET
+   -------------------------------------------------------------- */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--cream);
+  font-family: "Neue Haas Grotesk Text Pro", "Neue Haas Grotesk Text",
+               "Neue Haas Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.25;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.wrap {
+  width: min(calc(100% - 42px), var(--page-width));
+  margin: 0 auto;
+}
+
+.section {
+  padding: var(--section-padding) 0;
+}
+
+/* Display-font stack used for large headings */
+.hero h1,
+.hero-lab-title,
+.missionBox h2,
+.head h2,
+.join h2,
+.contact h2,
+.card h3,
+.project h3,
+.person h3,
+.pub h3,
+.news h3,
+.event-content h3,
+.learning-card h3 {
+  font-family: "Neue Haas Grotesk Display Pro", "Neue Haas Grotesk Display",
+               "Neue Haas Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* --------------------------------------------------------------
+   2. NAVIGATION BAR
+   Background: warm yellow gradient
+   Text: maroon
+   -------------------------------------------------------------- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background:
+    radial-gradient(circle at 8% 50%, rgba(255,255,255,.38) 0%, rgba(255,255,255,0) 30%),
+    linear-gradient(105deg, #FFF0A8 0%, #FBE47A 38%, #F6D65B 70%, #EFC643 100%);
+  border-bottom: 3px solid var(--maroon);
+  box-shadow: 0 7px 24px rgba(85, 19, 30, .12);
+}
+
+.navin {
+  min-height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* NAVIGATION LOGO — change variables at the top for easy resizing */
+.brand-logo {
+  width: var(--nav-logo-width);
+  max-height: 76px;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  box-shadow: none;
+  transform: scale(var(--nav-logo-scale));
+  transform-origin: center center;
+}
+
+.brand-name {
+  color: var(--maroon-dark);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  color: var(--maroon-dark);
+  font-size: .88rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -.01em;
+}
+
+.links a {
+  position: relative;
+  padding: 40px 0 37px;
+}
+
+.links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: 29px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--maroon-dark), var(--maroon-soft));
+  transition: right .2s ease;
+}
+
+.links a:hover {
+  color: var(--maroon-soft);
+}
+
+.links a:hover::after {
+  right: 0;
+}
+
+.menu {
+  display: none;
+  border: 0;
+  background: transparent;
+  color: var(--maroon-dark);
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+/* --------------------------------------------------------------
+   3. FIRST SECTION / HERO
+   Solid color requested by user: #6E1F28
+   -------------------------------------------------------------- */
+.hero {
+  min-height: calc(100vh - var(--nav-height));
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  padding: 72px 0 84px;
+  color: var(--white);
+  background: var(--hero-maroon);
+  border-bottom: 7px solid var(--yellow);
+}
+
+/* Keep the hero truly solid — no old gradient overlays */
+.hero::before,
+.hero::after {
+  display: none;
+}
+
+.heroGrid {
+  position: relative;
+  z-index: 2;
+  display: block;
+}
+
+.heroContent {
+  max-width: 980px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.heroBrand {
+  margin: 0 auto 42px;
+  padding-bottom: 34px;
+  border-bottom: 1px solid rgba(255,255,255,.16);
+}
+
+.hero-lab-title {
+  display: inline-block;
+  color: var(--white);
+  font-size: clamp(2.7rem, 4.8vw, 5rem);
+  line-height: .92;
+  font-weight: 600;
+  letter-spacing: -.05em;
+}
+
+.hero-lab-title span {
+  display: block;
+}
+
+.hero-lab-title span:first-child {
+  display: inline-block;
+  margin-bottom: 1rem;
+  padding: .55rem .9rem .5rem 1.05rem;
+  color: var(--yellow-light);
+  border: 1px solid rgba(255,240,168,.42);
+  background: rgba(255,255,255,.04);
+  font-size: .24em;
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: .17em;
+  text-transform: uppercase;
+}
+
+.hero-lab-title span:nth-child(3) {
+  margin-top: .15em;
+  color: rgba(255,255,255,.86);
+  font-size: .61em;
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: .055em;
+  text-transform: uppercase;
+}
+
+.hero-lab-title::after {
+  content: "";
+  display: block;
+  width: 116px;
+  height: 5px;
+  margin: 22px auto 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--yellow), #FFE98B);
+}
+
+.hero .eyebrow {
+  color: var(--yellow-light);
+  font-size: .78rem;
+  line-height: 1.05;
+  font-weight: 600;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  max-width: 950px;
+  margin: 22px auto 28px;
+  color: var(--white);
+  font-size: clamp(3.6rem, 6.8vw, 6.75rem);
+  line-height: .88;
+  font-weight: 600;
+  letter-spacing: -.055em;
+}
+
+.hero .grad {
+  display: block;
+  color: var(--yellow);
+}
+
+.hero .lead {
+  max-width: 760px;
+  margin: 0 auto;
+  color: rgba(255,255,255,.88);
+  font-size: 1.08rem;
+  line-height: 1.36;
+  letter-spacing: -.012em;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 34px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 19px;
+  border: 2px solid currentColor;
+  background: transparent;
+  font-size: .88rem;
+  line-height: 1;
+  font-weight: 600;
+  transition: transform .2s ease, background .2s ease, color .2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.hero .primary {
+  color: var(--maroon-dark);
+  background: var(--yellow);
+  border-color: var(--yellow);
+}
+
+.hero .primary:hover,
+.hero .btn:not(.primary):hover {
+  color: var(--maroon-dark);
+  background: var(--white);
+  border-color: var(--white);
+}
+
+.hero .btn:not(.primary) {
+  color: var(--white);
+  border-color: rgba(255,255,255,.88);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 48px;
+  text-align: left;
+}
+
+.stats div {
+  padding-top: 14px;
+  border-top: 1px solid rgba(255,255,255,.28);
+}
+
+.stats b,
+.stats span {
+  display: block;
+}
+
+.stats b {
+  color: var(--yellow-light);
+  font-size: .88rem;
+  line-height: 1.05;
+  font-weight: 600;
+}
+
+.stats span {
+  margin-top: 4px;
+  color: rgba(255,255,255,.72);
+  font-size: .79rem;
+  line-height: 1.2;
+}
+
+/* --------------------------------------------------------------
+   4. SHARED SECTION HEADINGS
+   -------------------------------------------------------------- */
+.head {
+  display: grid;
+  grid-template-columns: 1fr .75fr;
+  align-items: end;
+  gap: 40px;
+  margin-bottom: 42px;
+}
+
+.head h2,
+.missionBox h2,
+.join h2,
+.contact h2 {
+  margin: 10px 0 18px;
+  color: var(--maroon-dark);
+  font-size: clamp(2.55rem, 4.55vw, 4.55rem);
+  line-height: .9;
+  font-weight: 600;
+  letter-spacing: -.048em;
+}
+
+.head p,
+.missionBox p:last-child {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.34;
+}
+
+.kicker {
+  color: var(--maroon);
+  font-size: 1.75rem;
+  line-height: 1.1;
+  font-weight: 600;
+  letter-spacing: .085em;
+  text-transform: uppercase;
+}
+.role,
+.type,
+.event-date,
+.learning-label,
+.venue,
+.news time {
+  color: var(--maroon);
+  font-size: .74rem;
+  line-height: 1.1;
+  font-weight: 600;
+  letter-spacing: .085em;
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------
+   5. MISSION SECTION
+   -------------------------------------------------------------- */
+.mission {
+  padding-top: 0;
+  background: linear-gradient(135deg, #FFFDF7 0%, #FFF8E4 58%, #FFF1BC 100%);
+}
+
+.missionBox {
+  padding: 72px 0 68px;
+  border-bottom: 1px solid var(--line);
+}
+
+.missionBox p:last-child {
+  max-width: 880px;
+}
+
+/* --------------------------------------------------------------
+   6. RESEARCH SECTION
+   -------------------------------------------------------------- */
+#research {
+  background: linear-gradient(135deg, #FFF8DF 0%, #FFFFFF 50%, #FFF3C4 100%);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+
+.card {
+  padding: 34px 32px;
+  background: rgba(255,255,255,.88);
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  transition: background .2s ease, box-shadow .2s ease;
+}
+
+.card:hover {
+  background: #FFFDF5;
+  box-shadow: inset 6px 0 0 var(--maroon);
+}
+
+.num,
+.picon {
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+}
+
+.num {
+  width: 48px;
+  height: 48px;
+  color: var(--yellow-light);
+  background: var(--maroon);
+}
+
+.card h3,
+.project h3,
+.person h3,
+.pub h3,
+.news h3,
+.event-content h3,
+.learning-card h3 {
+  margin: 18px 0 9px;
+  font-size: 1.36rem;
+  line-height: 1.02;
+  font-weight: 600;
+  letter-spacing: -.025em;
+}
+
+.card p,
+.project p,
+.person p,
+.authors,
+.news p,
+.event-content p,
+.learning-card p,
+.joinBox p,
+.details p,
+.contact .lead {
+  font-size: 1rem;
+  line-height: 1.34;
+}
+
+.card p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 22px;
+}
+
+.tags span {
+  padding: 6px 9px;
+  color: #6C2632;
+  background: #FFF0B8;
+  border-bottom: 2px solid var(--yellow);
+  font-size: .7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------
+   7. PROJECTS SECTION
+   -------------------------------------------------------------- */
+#projects {
+  color: var(--white);
+  background:
+    radial-gradient(circle at 88% 12%, rgba(255,217,90,.17), transparent 20rem),
+    linear-gradient(125deg, #55151F 0%, #741F2C 58%, #8C2B3B 100%);
+}
+
+#projects .head h2,
+#projects .head p,
+#projects .project h3,
+#projects .project p {
+  color: var(--white);
+}
+
+#projects .kicker,
+#projects .type,
+#projects .arrow {
+  color: var(--yellow);
+}
+
+.project {
+  display: grid;
+  grid-template-columns: 65px 1fr auto;
+  align-items: center;
+  gap: 22px;
+  padding: 27px 0;
+  border-top: 1px solid rgba(255,217,90,.24);
+  transition: padding-left .2s ease, background .2s ease;
+}
+
+.project:last-child {
+  border-bottom: 1px solid rgba(255,217,90,.24);
+}
+
+.project:hover {
+  padding-left: 12px;
+  background: rgba(255,255,255,.045);
+}
+
+.picon {
+  width: 50px;
+  height: 50px;
+  color: var(--maroon-dark);
+  background: var(--yellow);
+}
+
+.project h3 {
+  margin: 2px 0 6px;
+}
+
+.project p {
+  margin: 0;
+}
+
+.type {
+  margin-bottom: 3px !important;
+}
+
+.arrow {
+  font-size: 1.7rem;
+}
+
+/* --------------------------------------------------------------
+   8. COURSES + TRAININGS
+   -------------------------------------------------------------- */
+#courses {
+  background: linear-gradient(135deg, #FFFFFF 0%, #FFF9E8 58%, #FFF1BF 100%);
+}
+
+#trainings {
+  background: linear-gradient(135deg, #FFF4C9 0%, #FFF9E9 58%, #FFFFFF 100%);
+}
+
+.learning-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.learning-card {
+  min-height: 235px;
+  display: flex;
+  flex-direction: column;
+  padding: 32px;
+  background: rgba(255,255,255,.90);
+  border: 1px solid var(--line);
+  transition: transform .2s ease, box-shadow .2s ease, border .2s ease;
+}
+
+.learning-card:hover {
+  transform: translateY(-3px);
+  border-top: 4px solid var(--maroon);
+  padding-top: 29px;
+  box-shadow: 0 16px 38px rgba(85,21,31,.10);
+}
+
+.learning-card h3 {
+  margin: 0 0 10px;
+  color: var(--maroon-dark);
+}
+
+.learning-card p {
+  margin: 0 0 24px;
+  color: var(--muted);
+}
+
+.learning-link {
+  margin-top: auto;
+  color: var(--maroon);
+  font-size: .88rem;
+  font-weight: 600;
+}
+
+.learning-link span {
+  color: #B68100;
+}
+
+/* --------------------------------------------------------------
+   9. PEOPLE SECTION
+   -------------------------------------------------------------- */
+#people {
+  background: linear-gradient(135deg, #FFFDF6 0%, #FFF2BE 62%, #FFF8DF 100%);
+}
+
+.people {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.person {
+  padding: 25px;
+  background: rgba(255,255,255,.92);
+  border: 1px solid var(--line);
+}
+
+.person.pi {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 95px 1fr;
+  align-items: center;
+  gap: 22px;
+  color: var(--white);
+  background: linear-gradient(115deg, var(--maroon-dark), var(--maroon) 60%, #913344);
+  border: 0;
+  border-bottom: 7px solid var(--yellow);
+}
+
+.avatar {
+  width: 72px;
+  height: 72px;
+  display: grid;
+  place-items: center;
+  color: var(--maroon);
+  background: #FFF0B2;
+  font-weight: 700;
+}
+
+.pi .avatar {
+  width: 95px;
+  height: 95px;
+  color: var(--maroon-dark);
+  background: var(--yellow);
+}
+
+.person h3 {
+  margin: 5px 0;
+  color: var(--maroon-dark);
+}
+
+.person p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.pi .role {
+  color: var(--yellow-light);
+}
+
+.pi h3,
+.pi p:last-child {
+  color: var(--white);
+}
+
+/* --------------------------------------------------------------
+   10. PUBLICATIONS SECTION
+   -------------------------------------------------------------- */
+.dark {
+  color: var(--white);
+  background: linear-gradient(125deg, #3F0F17 0%, #5A1722 52%, #741F2C 100%);
+  border-top: 7px solid var(--yellow);
+}
+
+.dark .head h2 {
+  color: var(--white);
+}
+
+.dark .head p,
+.authors {
+  color: #F3E4E6;
+}
+
+.dark .kicker,
+.year {
+  color: var(--yellow);
+}
+
+.pub-section-wrap {
+  display: block;
+}
+
+.pub {
+  display: grid;
+  grid-template-columns: 95px 1fr;
+  gap: 26px;
+  padding: 29px 0;
+  border-top: 1px solid rgba(255,217,90,.20);
+}
+
+.pub:last-child {
+  border-bottom: 1px solid rgba(255,217,90,.20);
+}
+
+.year {
+  font-weight: 700;
+}
+
+.venue {
+  color: #FFE8A0;
+}
+
+.pub h3 {
+  margin: 4px 0 6px;
+}
+
+.authors {
+  margin: 0;
+}
+
+/* --------------------------------------------------------------
+   11. NEWS SECTION
+   -------------------------------------------------------------- */
+#news {
+  background: linear-gradient(135deg, #FFFFFF 0%, #FFF9E8 52%, #FFF1BC 100%);
+}
+
+.news {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+
+.news article {
+  padding: 28px;
+  background: rgba(255,255,255,.92);
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  transition: box-shadow .2s ease;
+}
+
+.news article:hover {
+  box-shadow: inset 0 -6px 0 var(--maroon);
+}
+
+.news h3 {
+  margin: 14px 0 9px;
+  color: var(--maroon-dark);
+}
+
+.news p {
+  margin: 0;
+  color: var(--muted);
+}
+
+/* --------------------------------------------------------------
+   12. EVENTS SECTION
+   -------------------------------------------------------------- */
+#events {
+  background: linear-gradient(135deg, #FFF3C7 0%, #FFF9E8 55%, #FFFFFF 100%);
+}
+
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 22px;
+}
+
+.event-card {
+  min-height: 300px;
+  display: grid;
+  grid-template-columns: 1.03fr .97fr;
+  overflow: hidden;
+  background: rgba(255,255,255,.92);
+  border: 1px solid var(--line);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.event-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 38px rgba(85,21,31,.10);
+}
+
+.event-image {
+  min-height: 260px;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  color: var(--maroon);
+  background: linear-gradient(135deg, #FFF1B5, #F2CF67);
+  border-right: 1px solid var(--line);
+  font-size: .76rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.event-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 30px;
+}
+
+.event-content h3 {
+  margin: 0 0 12px;
+  color: var(--maroon-dark);
+}
+
+.event-content p {
+  margin: 0 0 18px;
+  color: var(--muted);
+}
+
+.event-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-top: 14px;
+  color: #7A555C;
+  border-top: 1px solid var(--line);
+  font-size: .78rem;
+}
+
+.event-meta span {
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------
+   13. JOIN HICOAR SECTION
+   -------------------------------------------------------------- */
+.join {
+  background: linear-gradient(135deg, #FFFDF8 0%, #FFF1BD 100%);
+}
+
+.joinBox {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 42px;
+  padding: 58px;
+  color: var(--white);
+  background: linear-gradient(115deg, #55151F 0%, #741F2C 66%, #8C2B3B 100%);
+  border-top: 5px solid var(--yellow);
+  box-shadow: 0 18px 42px rgba(85,21,31,.18);
+}
+
+.joinBox h2 {
+  color: var(--white);
+}
+
+.joinBox p {
+  max-width: 720px;
+  color: #F7E8EA;
+}
+
+.joinBox .kicker {
+  color: var(--yellow);
+}
+
+.joinBtns {
+  display: grid;
+  gap: 10px;
+}
+
+.joinBox .light {
+  color: var(--maroon-dark);
+  background: var(--yellow);
+  border-color: var(--yellow);
+}
+
+.joinBox .outline {
+  color: var(--white);
+  border-color: #FFF4D1;
+}
+
+.joinBox .btn:hover {
+  color: var(--maroon);
+  background: var(--white);
+  border-color: var(--white);
+}
+
+/* --------------------------------------------------------------
+   14. CONTACT SECTION
+   -------------------------------------------------------------- */
+#contact {
+  background: linear-gradient(135deg, #FFFFFF 0%, #FFF7DA 100%);
+}
+
+.contactGrid {
+  display: grid;
+  grid-template-columns: .85fr 1.15fr;
+  gap: 80px;
+}
+
+.contact .lead {
+  color: var(--muted);
+}
+
+.details {
+  border-top: 1px solid var(--line);
+}
+
+.details div {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.details span {
+  color: #87666D;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.details p {
+  margin: 0;
+}
+
+.details a {
+  color: var(--maroon);
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------
+   15. FOOTER
+   -------------------------------------------------------------- */
+footer {
+  padding: 30px 0;
+  color: var(--white);
+  background: linear-gradient(120deg, #3F0F17, #5A1722 58%, #741F2C);
+  border-top: 5px solid var(--yellow);
+}
+
+.foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  font-size: .8rem;
+}
+
+.foot a {
+  color: var(--yellow-light);
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------
+   16. RESPONSIVE / MOBILE
+   -------------------------------------------------------------- */
+@media (max-width: 1100px) {
+  .links {
+    gap: 16px;
+    font-size: .80rem;
+  }
+
+  .brand-logo {
+    width: 160px;
+    max-height: 66px;
+  }
+}
+
+@media (max-width: 900px) {
+  :root {
+    --nav-height: 90px;
+  }
+
+  .menu {
+    display: block;
+  }
+
+  .links {
+    display: none;
+  }
+
+  .links.open {
+    position: absolute;
+    top: var(--nav-height);
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 12px 24px 22px;
+    background: linear-gradient(105deg, #FFF0A8 0%, #FBE47A 38%, #F6D65B 70%, #EFC643 100%);
+    border-bottom: 1px solid rgba(111,29,42,.25);
+    box-shadow: 0 16px 28px rgba(85,21,31,.12);
+  }
+
+  .links.open a {
+    padding: 14px 0;
+    color: var(--maroon-dark);
+    font-size: .92rem;
+  }
+
+  .links.open a::after {
+    bottom: 8px;
+  }
+
+  .hero {
+    min-height: auto;
+    padding: 58px 0 72px;
+  }
+
+  .hero h1 {
+    font-size: clamp(3.1rem, 10vw, 5.6rem);
+  }
+
+  .head,
+  .contactGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .contactGrid {
+    gap: 30px;
+  }
+
+  .people {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .learning-grid,
+  .events-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .joinBox {
+    grid-template-columns: 1fr;
+  }
+
+  .joinBtns {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 620px) {
+  :root {
+    --section-padding: 72px;
+  }
+
+  body {
+    font-size: 15.5px;
+  }
+
+  .wrap {
+    width: min(calc(100% - 28px), var(--page-width));
+  }
+
+  .brand-logo {
+    width: 135px;
+    max-height: 56px;
+  }
+
+  .hero {
+    padding: 44px 0 62px;
+  }
+
+  .heroBrand {
+    margin-bottom: 28px;
+    padding-bottom: 23px;
+  }
+
+  .hero-lab-title {
+    font-size: clamp(2.05rem, 10.5vw, 3rem);
+  }
+
+  .hero h1 {
+    font-size: clamp(2.65rem, 13vw, 4.15rem);
+    line-height: .91;
+  }
+
+  .hero .lead {
+    font-size: 1rem;
+    line-height: 1.35;
+  }
+
+  .stats,
+  .cards,
+  .people,
+  .news {
+    grid-template-columns: 1fr;
+  }
+
+  .stats {
+    text-align: center;
+  }
+
+  .missionBox h2,
+  .head h2,
+  .join h2,
+  .contact h2 {
+    font-size: clamp(2.15rem, 10.5vw, 3.3rem);
+    line-height: .92;
+  }
+
+  .missionBox {
+    padding: 56px 0;
+  }
+
+  .project {
+    grid-template-columns: 48px 1fr;
+    padding: 22px 0;
+  }
+
+  .arrow {
+    grid-column: 2;
+  }
+
+  .person.pi {
+    grid-template-columns: 70px 1fr;
+  }
+
+  .pi .avatar {
+    width: 70px;
+    height: 70px;
+  }
+
+  .pub {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .event-card {
+    grid-template-columns: 1fr;
+  }
+
+  .event-image {
+    min-height: 190px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .joinBox {
+    padding: 38px 25px;
+  }
+
+  .joinBtns {
+    grid-template-columns: 1fr;
+  }
+
+  .details div {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .foot {
+    flex-direction: column;
+    text-align: center;
+  }
+}
